@@ -21,7 +21,7 @@ exports.signup = async (req, res) => {
     // hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // create new user
+    // create new user (default role = user)
     const user = new User({
       name,
       email,
@@ -69,16 +69,25 @@ exports.login = async (req, res) => {
       });
     }
 
-    // create token
+    // 🔥 CREATE TOKEN WITH ROLE
     const token = jwt.sign(
-      { id: user._id },
-      "secretkey",
+      {
+        id: user._id,
+        role: user.role   // ✅ VERY IMPORTANT
+      },
+      process.env.JWT_SECRET || "secretkey",
       { expiresIn: "1h" }
     );
 
     res.json({
       message: "Login successful",
-      token
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role   // optional but useful for frontend
+      }
     });
 
   } catch (error) {
