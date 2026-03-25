@@ -13,33 +13,34 @@ function Navbar() {
 
   return (
 
-    <div className="bg-gray-900 text-white px-6 py-4 flex justify-between items-center">
+    <div className="bg-white border-b border-emerald-900/10 px-8 py-4 flex justify-between items-center shadow-sm">
 
-      <h1 className="font-bold text-xl">
+      <h1 className="font-black text-xl text-[#1a2e1a] tracking-tighter italic uppercase">
         DevPrep AI
       </h1>
 
-      <div className="space-x-6">
+      <div className="flex items-center space-x-8">
 
-        <Link to="/dashboard">Dashboard</Link>
+        <Link to="/dashboard" className="font-bold text-[#4a5d4a] hover:text-[#2d5a27] transition-colors text-sm uppercase tracking-tight italic">Dashboard</Link>
 
-        <Link to="/questions">Questions</Link>
+        <Link to="/questions" className="font-bold text-[#4a5d4a] hover:text-[#2d5a27] transition-colors text-sm uppercase tracking-tight italic">Questions</Link>
 
-        <Link to="/submissions">Submissions</Link>
+        <Link to="/submissions" className="font-bold text-[#4a5d4a] hover:text-[#2d5a27] transition-colors text-sm uppercase tracking-tight italic">Submissions</Link>
 
-        <Link to="/leaderboard">Leaderboard</Link>
+        <Link to="/leaderboard" className="font-bold text-[#4a5d4a] hover:text-[#2d5a27] transition-colors text-sm uppercase tracking-tight italic">Leaderboard</Link>
 
-        <Link to="/profile">Profile</Link>
+        <Link to="/profile" className="font-bold text-[#4a5d4a] hover:text-[#2d5a27] transition-colors text-sm uppercase tracking-tight italic">Profile</Link>
+
+        <button onClick={() => navigate("/admin")} className="font-bold text-[#4a5d4a] hover:text-[#2d5a27] transition-colors text-sm uppercase tracking-tight italic">
+  Admin
+</button>
 
         <button
           onClick={logout}
-          className="bg-red-500 px-3 py-1 rounded"
+          className="bg-[#2d5a27] hover:bg-[#1f3f1b] text-white px-4 py-2 rounded-xl font-bold text-sm uppercase tracking-tight italic transition-all shadow-md"
         >
           Logout
         </button>
-        <button onClick={() => navigate("/admin")}>
-  Admin
-</button>
 
       </div>
 

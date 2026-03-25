@@ -6,13 +6,14 @@ exports.addQuestion = async (req, res) => {
 
   try {
 
-    const { title, description, difficulty, testCases } = req.body;
+    const { title, description, difficulty, testCases, functionName } = req.body;
 
     const question = new Question({
       title,
       description,
       difficulty,
-      testCases
+      testCases,
+      functionName: functionName || "solution"
     });
 
     await question.save();
@@ -102,46 +103,50 @@ exports.deleteQuestion = async (req, res) => {
 };
 // ================= UPDATE QUESTION =================
 exports.updateQuestion = async (req, res) => {
-
   try {
-
     const { id } = req.params;
     const { title, description, difficulty, testCases } = req.body;
-
-    console.log("✏️ UPDATE REQUEST:", id);
-
     const updated = await Question.findByIdAndUpdate(
       id,
-      {
-        title,
-        description,
-        difficulty,
-        testCases
-      },
+      { title, description, difficulty, testCases },
       { new: true }
     );
+    if (!updated) return res.status(404).json({ message: "Question not found" });
+    res.json({ message: "Question updated successfully", updated });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
 
-    if (!updated) {
-      return res.status(404).json({
-        message: "Question not found"
-      });
+// ================= GET QUESTION BY ID =================
+exports.getQuestionById = async (req, res) => {
+  try {
+    const question = await Question.findById(req.params.id);
+    if (!question) return res.status(404).json({ message: "Question not found" });
+    res.json(question);
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// ================= GET DAILY QUESTION =================
+exports.getDailyQuestion = async (req, res) => {
+  try {
+    const questions = await Question.find();
+    if (questions.length === 0) return res.status(404).json({ message: "No questions available" });
+
+    // Use date string as seed: "2026-03-25"
+    const dateStr = new Date().toISOString().split('T')[0];
+    let hash = 0;
+    for (let i = 0; i < dateStr.length; i++) {
+        hash = ((hash << 5) - hash) + dateStr.charCodeAt(i);
+        hash |= 0; // Convert to 32bit integer
     }
 
-    console.log("✅ Question Updated:", updated._id);
-
-    res.json({
-      message: "Question updated successfully",
-      updated
-    });
+    const index = Math.abs(hash) % questions.length;
+    res.json(questions[index]);
 
   } catch (error) {
-
-    console.error("❌ UPDATE ERROR:", error);
-
-    res.status(500).json({
-      message: "Server error"
-    });
-
+    res.status(500).json({ message: "Server error" });
   }
-
 };

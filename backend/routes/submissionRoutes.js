@@ -6,7 +6,11 @@ const authMiddleware = require("../middleware/authMiddleware");
 const {
   runCodeOnly,
   submitCode,
-  getUserSubmissions
+  getUserSubmissions,
+  generateHints,
+  generateExplanation,
+  analyzeComplexity,
+  getSolvedQuestions
 } = require("../controllers/submissionController");
 
 
@@ -15,6 +19,24 @@ router.post("/run", authMiddleware, runCodeOnly);
 router.post("/submit", authMiddleware, submitCode);
 
 router.get("/my-submissions", authMiddleware, getUserSubmissions);
+
+router.get("/solved", authMiddleware, getSolvedQuestions);
+
+router.get("/hints/:questionId", authMiddleware, generateHints);
+
+router.post("/explanation", authMiddleware, generateExplanation);
+
+router.post("/complexity", authMiddleware, analyzeComplexity);
+
+router.get("/analyze", authMiddleware, async (req, res) => {
+  try {
+    const { analyzeUserPerformance } = require("../services/analysisService");
+    const result = await analyzeUserPerformance(req.user.id);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ message: "Error analyzing performance" });
+  }
+});
 
 
 module.exports = router;

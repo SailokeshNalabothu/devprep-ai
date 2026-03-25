@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-exports.runCode = async (source_code, language_id) => {
+exports.runCode = async (source_code, language_id, stdin = "") => {
 
   try {
 
@@ -8,7 +8,8 @@ exports.runCode = async (source_code, language_id) => {
       "https://ce.judge0.com/submissions?base64_encoded=false&wait=true",
       {
         source_code: source_code,
-        language_id: language_id
+        language_id: language_id,
+        stdin: stdin
       },
       {
         headers: {

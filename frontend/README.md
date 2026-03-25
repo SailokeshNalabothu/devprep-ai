@@ -1,70 +1,110 @@
-# Getting Started with Create React App
+# DevPrep AI - Smart Coding Interview Preparation Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+DevPrep AI is an advanced coding interview preparation platform that combines automated code execution with AI-powered guidance to help developers excel in technical interviews.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+### Core Functionality
+- **User Authentication**: Secure signup/login with JWT tokens
+- **Question Bank**: Browse coding problems by difficulty (Easy/Medium/Hard)
+- **Integrated Code Editor**: Monaco Editor with syntax highlighting
+- **Code Execution**: Real-time code testing using Judge0 API
+- **Automated Testing**: Validate solutions against predefined test cases
+- **Progress Tracking**: View submission history and statistics
+- **Leaderboard**: Compete with other users based on solved problems
 
-### `npm start`
+### AI-Powered Features (New!)
+- **AI Code Review**: Get detailed feedback on submitted solutions, including mistakes and optimization suggestions
+- **Step-by-Step Hints**: AI-generated hints to guide you through problem-solving (Idea → Approach → Pseudocode)
+- **Solution Explanation**: Human-readable explanations of accepted solutions, like a teacher
+- **Complexity Analysis**: Automatic time and space complexity analysis of your code
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Technology Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Backend
+- **Node.js** with **Express.js**
+- **MongoDB** for data storage
+- **JWT** for authentication
+- **Google Gemini API** for AI features (free tier available)
+- **Judge0 API** for code execution
 
-### `npm test`
+### Frontend
+- **React** with **React Router**
+- **Monaco Editor** for code editing
+- **Tailwind CSS** for styling
+- **Axios** for API communication
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Getting Started
 
-### `npm run build`
+### Prerequisites
+- Node.js (v14 or higher)
+- MongoDB (local or cloud instance)
+- Google Gemini API key (free tier available)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd devprep-ai
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. **Backend Setup**
+   ```bash
+   cd backend
+   npm install
+   # Add your Google Gemini API key to .env
+   echo "GEMINI_API_KEY=your_gemini_api_key_here" > .env
+   npm start
+   ```
 
-### `npm run eject`
+3. **Frontend Setup** (in a new terminal)
+   ```bash
+   cd frontend
+   npm install
+   npm start
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+4. **Access the application**
+   - Frontend: http://localhost:3000
+   - Backend API: http://localhost:5000
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## API Endpoints
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Authentication
+- `POST /api/auth/signup` - User registration
+- `POST /api/auth/login` - User login
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Questions
+- `GET /api/questions` - Get all questions
+- `POST /api/questions` - Add new question (admin only)
 
-## Learn More
+### Submissions
+- `POST /api/submissions/run` - Run code without validation
+- `POST /api/submissions/submit` - Submit code with test validation
+- `GET /api/submissions/my-submissions` - Get user's submissions
+- `GET /api/submissions/hints/:questionId` - Get AI hints for a question
+- `POST /api/submissions/explanation` - Generate solution explanation
+- `POST /api/submissions/complexity` - Analyze code complexity
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Leaderboard
+- `GET /api/leaderboard` - Get user rankings
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Usage
 
-### Code Splitting
+1. **Sign up/Login** to create your account
+2. **Browse Questions** on the dashboard
+3. **Solve Problems** in the integrated editor
+4. **Get AI Hints** if you're stuck
+5. **Run Code** to test your solution
+6. **Submit Code** to validate against test cases
+7. **Review AI Feedback** for accepted solutions
+8. **Track Progress** on your profile and leaderboard
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Contributing
 
-### Analyzing the Bundle Size
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## License
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the ISC License.

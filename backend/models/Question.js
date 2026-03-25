@@ -18,6 +18,12 @@ const questionSchema = new mongoose.Schema({
     default: "Easy"
   },
 
+  // Expected function name for validation
+  functionName: {
+    type: String,
+    default: "solution"
+  },
+
   // NEW FIELD → Test Cases
   testCases: [
     {
